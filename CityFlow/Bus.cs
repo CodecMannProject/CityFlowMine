@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CityFlow
 {
-    internal class Bus : TransportVehicle
+    internal class Bus : TransportVehicle,IPassengerCarrier
     {
         public string FuelType { get; set; }
+
+        public int CurrentPassengerCount => throw new NotImplementedException();
 
         public Bus(int id, string model, string type, int capacity, string fuelType) : base(id, model, type, capacity)
         {
@@ -18,4 +20,20 @@ namespace CityFlow
         {
             return base.GetInfo() + $", Fuel Type: {FuelType}";
         }
+
+        public override void PrepareForDay()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BoardPassengers(int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisembarkPassengers(int count)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

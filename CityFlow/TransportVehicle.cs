@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CityFlow
 {
-    internal class TransportVehicle
+    public abstract class TransportVehicle
     {
         private int _id;
         private string _model;
@@ -46,5 +46,6 @@ namespace CityFlow
         {
             return $"ID: {_id}, Model: {_model}, Type: {_type}, Capacity: {_capacity} tons";
         }
+        public abstract void PrepareForDay();
     }
 }
