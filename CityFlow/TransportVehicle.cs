@@ -42,7 +42,7 @@ namespace CityFlow
             _type = type;
             _capacity = capacity;
         }
-        public string GetInfo()
+        public virtual string GetInfo()
         {
             return $"ID: {_id}, Model: {_model}, Type: {_type}, Capacity: {_capacity} tons";
         }
