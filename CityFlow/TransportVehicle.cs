@@ -11,9 +11,31 @@ namespace CityFlow
         private int _id;
         private string _model;
         private string _type;
-        private double _capacity;
-
-        public TransportVehicle(int id, string model, string type, double capacity)
+        private int _capacity;
+        private int _year;
+        public int Capacity
+        {
+            get { return _capacity; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _capacity = value;
+                }
+            }
+        }
+        public int Year
+        {
+            get { return _year; }
+            set
+            {
+                if (value <= DateTime.Now.Year+1)
+                {
+                    _year = value;
+                }
+            }
+        }
+        public TransportVehicle(int id, string model, string type, int capacity)
         {
             _id = id;
             _model = model;
