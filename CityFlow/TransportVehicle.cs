@@ -8,11 +8,13 @@ namespace CityFlow
 {
     public abstract class TransportVehicle
     {
-        private int _id;
-        private string _model;
+        protected int _id;
+        protected string _model;
         private string _type;
         private int _capacity;
         private int _year;
+        private VechicleStatus _status;
+
         public int Capacity
         {
             get { return _capacity; }
@@ -29,13 +31,13 @@ namespace CityFlow
             get { return _year; }
             set
             {
-                if (value <= DateTime.Now.Year+1)
+                if (value <= DateTime.Now.Year + 1)
                 {
                     _year = value;
                 }
             }
         }
-        public TransportVehicle(int id, string model, string type, int capacity)
+        public TransportVehicle(int id, string model, string type, int capacity, bool status)
         {
             _id = id;
             _model = model;
@@ -47,5 +49,52 @@ namespace CityFlow
             return $"ID: {_id}, Model: {_model}, Type: {_type}, Capacity: {_capacity} tons";
         }
         public abstract void PrepareForDay();
+
+        public void AsiignRoute()
+        {
+            if(_status == VechicleStatus.InDepot)
+            {
+                _status = VechicleStatus.Available;
+                if (PerformPreTripCheck())
+                {
+                    _status= VechicleStatus.OnRoute;
+
+                }
+                else
+                {
+                    _status = VechicleStatus.UnderMaintenance;
+                    throw new InvalidOperationException("Pre-trip check failed. Vehicle is under maintenance.");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Vehicle is not available for assignment.");
+            }
+        }
+
+        public virtual void StartRoute()
+        {
+        }
+
+        public virtual void EndRoute()
+        {
+        }
+        public virtual void StopRoute() { }
+
+        public virtual void ToDepot()
+        {
+        }
+        public abstract void PerformMaintenance();
+        public abstract bool PerformPreTripCheck();
+    }
+
+    public enum VechicleStatus
+    {
+        Available,
+        InDepot,
+        OnRoute,
+        InService,
+        UnderMaintenance,
+        OutOfService
     }
 }
