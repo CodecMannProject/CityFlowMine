@@ -13,7 +13,11 @@ namespace CityFlow
         private string _type;
         private int _capacity;
         private int _year;
+<<<<<<< HEAD
         private VechicleStatus _status;
+=======
+        protected VechicleStatus _status;
+>>>>>>> Add project files.
 
         public int Capacity
         {
@@ -37,13 +41,25 @@ namespace CityFlow
                 }
             }
         }
+<<<<<<< HEAD
         public TransportVehicle(int id, string model, string type, int capacity, bool status)
+=======
+
+        protected TransportVehicle(int id, string model, string type, int capacity, VechicleStatus status)
+>>>>>>> Add project files.
         {
             _id = id;
             _model = model;
             _type = type;
+<<<<<<< HEAD
             _capacity = capacity;
         }
+=======
+            Capacity = capacity;
+            _status = status;
+        }
+
+>>>>>>> Add project files.
         public virtual string GetInfo()
         {
             return $"ID: {_id}, Model: {_model}, Type: {_type}, Capacity: {_capacity} tons";

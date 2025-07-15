@@ -6,19 +6,35 @@ using System.Threading.Tasks;
 
 namespace CityFlow
 {
+<<<<<<< HEAD
     internal class Bus : TransportVehicle,IPassengerCarrier
     {
         public Bus(int id, string model, string type, int capacity,bool status) : base(id, model, type, capacity,status)
         {
             FuelType = "Diesel";
             AreDorrsOpen = false;
+=======
+    public class Bus : TransportVehicle
+    {
+        public Bus(int id, string model, string type, int capacity, VechicleStatus status) : base(id, model, type, capacity, status)
+        {
+            FuelType = "Diesel";
+            AreDorrsOpen = false;
+            MaintanceHistory = new List<MaintanceRecord>();
+
+>>>>>>> Add project files.
         }
 
         public string FuelType { get; set; }
         public bool AreDorrsOpen { get; set; }
         public int CurrentPassengerCount => throw new NotImplementedException();
+<<<<<<< HEAD
 
        
+=======
+        public List<MaintanceRecord> MaintanceHistory { get; set; }
+        public int Millage { get; private set; }
+>>>>>>> Add project files.
 
         private void OpenDoors()
         {
@@ -68,7 +84,11 @@ namespace CityFlow
                     Console.WriteLine($"{boardingCount} passengers boarded the bus.");
                 }
             }
+<<<<<<< HEAD
             return PassengerCount; 
+=======
+            return PassengerCount;
+>>>>>>> Add project files.
         }
 
         public int DisembarkPassengers(int PassengerCount)
@@ -112,5 +132,78 @@ namespace CityFlow
         {
             throw new NotImplementedException();
         }
+<<<<<<< HEAD
+=======
+        public VechicleStatus GetStatus()
+        {
+            return _status;
+        }
+
+        public void SendToRepair()
+        {
+            if (_status == VechicleStatus.UnderMaintenance)
+            {
+                _status = VechicleStatus.InDepot;
+                Console.WriteLine("Bus is now in repair.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not under maintenance.");
+            }
+        }
+        public void ReturnFromRepair()
+        {
+            if (_status == VechicleStatus.InDepot)
+            {
+                _status = VechicleStatus.Available;
+                Console.WriteLine("Bus has returned from repair and is now available.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not in depot.");
+            }
+        }
+        public void GoOnRoute()
+        {
+            if (_status == VechicleStatus.Available)
+            {
+                _status = VechicleStatus.OnRoute;
+                Console.WriteLine("Bus is now on route.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not available for route assignment.");
+            }
+        }
+        public void GoToDepot()
+        {
+            if (_status == VechicleStatus.OnRoute)
+            {
+                _status = VechicleStatus.InDepot;
+                Console.WriteLine("Bus is now in depot.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not on route.");
+            }
+        }
+        public void AddMaintenanceRecord(MaintanceRecord record)
+        {
+            if (MaintanceHistory == null)
+            {
+                MaintanceHistory = new List<MaintanceRecord>();
+            }
+            MaintanceHistory.Add(record);
+        }
+        public void UpdateMillage(int newMillage)
+        {
+            if (newMillage < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(newMillage), "Millage cannot be negative.");
+            }
+            Millage = newMillage;
+            Console.WriteLine($"Millage updated to {Millage} km.");
+        }
+>>>>>>> Add project files.
     }
 }
