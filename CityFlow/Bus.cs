@@ -113,6 +113,7 @@ namespace CityFlow
             }
         }
 
+<<<<<<< HEAD
         public override string GetInfo()
         {
             return base.GetInfo() + $", Fuel Type: {FuelType}";
@@ -139,6 +140,8 @@ namespace CityFlow
             return _status;
         }
 
+=======
+>>>>>>> Git Fix
         public void SendToRepair()
         {
             if (_status == VechicleStatus.UnderMaintenance)

@@ -66,7 +66,7 @@ namespace CityFlow
         }
         public abstract void PrepareForDay();
 
-        public void AsiignRoute()
+        public void AssignRoute()
         {
             if(_status == VechicleStatus.InDepot)
             {
