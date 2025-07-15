@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CityFlow
+﻿namespace CityFlow
 {
     public abstract class TransportVehicle
     {
@@ -68,12 +62,12 @@ namespace CityFlow
 
         public void AssignRoute()
         {
-            if(_status == VechicleStatus.InDepot)
+            if (_status == VechicleStatus.InDepot)
             {
                 _status = VechicleStatus.Available;
                 if (PerformPreTripCheck())
                 {
-                    _status= VechicleStatus.OnRoute;
+                    _status = VechicleStatus.OnRoute;
 
                 }
                 else
