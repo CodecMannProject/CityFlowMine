@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace CityFlow
 {
-<<<<<<< HEAD
-    internal class Driver
-    {
-=======
     public class Driver
     {
         public Guid EmployeeId { get; private set; }
@@ -98,6 +94,5 @@ namespace CityFlow
                 throw new InvalidOperationException("Driver is not on leave.");
             }
         }
->>>>>>> Add project files.
     }
 }

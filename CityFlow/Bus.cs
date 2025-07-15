@@ -6,14 +6,6 @@ using System.Threading.Tasks;
 
 namespace CityFlow
 {
-<<<<<<< HEAD
-    internal class Bus : TransportVehicle,IPassengerCarrier
-    {
-        public Bus(int id, string model, string type, int capacity,bool status) : base(id, model, type, capacity,status)
-        {
-            FuelType = "Diesel";
-            AreDorrsOpen = false;
-=======
     public class Bus : TransportVehicle
     {
         public Bus(int id, string model, string type, int capacity, VechicleStatus status) : base(id, model, type, capacity, status)
@@ -22,43 +14,13 @@ namespace CityFlow
             AreDorrsOpen = false;
             MaintanceHistory = new List<MaintanceRecord>();
 
->>>>>>> Add project files.
         }
 
         public string FuelType { get; set; }
         public bool AreDorrsOpen { get; set; }
         public int CurrentPassengerCount => throw new NotImplementedException();
-<<<<<<< HEAD
-
-       
-=======
         public List<MaintanceRecord> MaintanceHistory { get; set; }
         public int Millage { get; private set; }
->>>>>>> Add project files.
-
-        public override string GetInfo()
-        {
-            return base.GetInfo() + $", Fuel Type: {FuelType}";
-        }
-
-        public override void PrepareForDay()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void PerformMaintenance()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool PerformPreTripCheck()
-        {
-            throw new NotImplementedException();
-        }
-        public VechicleStatus GetStatus()
-        {
-            return _status;
-        }
 
         private void OpenDoors()
         {
@@ -108,11 +70,7 @@ namespace CityFlow
                     Console.WriteLine($"{boardingCount} passengers boarded the bus.");
                 }
             }
-<<<<<<< HEAD
-            return PassengerCount; 
-=======
             return PassengerCount;
->>>>>>> Add project files.
         }
 
         public int DisembarkPassengers(int PassengerCount)
@@ -137,7 +95,6 @@ namespace CityFlow
             }
         }
 
-<<<<<<< HEAD
         public override string GetInfo()
         {
             return base.GetInfo() + $", Fuel Type: {FuelType}";
@@ -157,15 +114,11 @@ namespace CityFlow
         {
             throw new NotImplementedException();
         }
-<<<<<<< HEAD
-=======
         public VechicleStatus GetStatus()
         {
             return _status;
         }
 
-=======
->>>>>>> Git Fix
         public void SendToRepair()
         {
             if (_status == VechicleStatus.UnderMaintenance)
@@ -231,6 +184,5 @@ namespace CityFlow
             Millage = newMillage;
             Console.WriteLine($"Millage updated to {Millage} km.");
         }
->>>>>>> Add project files.
     }
 }
