@@ -100,20 +100,12 @@ namespace CityFlow
             return base.GetInfo() + $", Fuel Type: {FuelType}";
         }
 
-        public override void PrepareForDay()
-        {
-            throw new NotImplementedException();
-        }
+        public override void PrepareForDay() => throw new NotImplementedException();
 
-        public override void PerformMaintenance()
-        {
-            throw new NotImplementedException();
-        }
+        public override void PerformMaintenance() => throw new NotImplementedException();
 
-        public override bool PerformPreTripCheck()
-        {
-            throw new NotImplementedException();
-        }
+        public override bool PerformPreTripCheck() => throw new NotImplementedException();
+
         public VechicleStatus GetStatus()
         {
             return _status;
