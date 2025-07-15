@@ -36,6 +36,30 @@ namespace CityFlow
         public int Millage { get; private set; }
 >>>>>>> Add project files.
 
+        public override string GetInfo()
+        {
+            return base.GetInfo() + $", Fuel Type: {FuelType}";
+        }
+
+        public override void PrepareForDay()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PerformMaintenance()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool PerformPreTripCheck()
+        {
+            throw new NotImplementedException();
+        }
+        public VechicleStatus GetStatus()
+        {
+            return _status;
+        }
+
         private void OpenDoors()
         {
             if (!AreDorrsOpen)
