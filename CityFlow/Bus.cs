@@ -8,19 +8,29 @@ namespace CityFlow
 {
     public class Bus : TransportVehicle
     {
-        public Bus(int id, string model, string type, int capacity, VechicleStatus status) : base(id, model, type, capacity, status)
+        internal VehicleStatus status;
+        [System.Text.Json.Serialization.JsonIgnore]
+        public float CurrentVisualX { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public float CurrentVisualY { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public int NextStopIndex { get; set; }
+        public Bus(string id, string model, string type, int capacity, VechicleStatus status) : base((string)id, model, type, capacity, status)
         {
             FuelType = "Diesel";
             AreDorrsOpen = false;
             MaintanceHistory = new List<MaintanceRecord>();
+            status = VechicleStatus.Available;
 
         }
 
         public string FuelType { get; set; }
         public bool AreDorrsOpen { get; set; }
-        public int CurrentPassengerCount => throw new NotImplementedException();
         public List<MaintanceRecord> MaintanceHistory { get; set; }
         public int Millage { get; private set; }
+        public Route AssignedRoute { get; internal set; }
 
         private void OpenDoors()
         {
@@ -100,12 +110,20 @@ namespace CityFlow
             return base.GetInfo() + $", Fuel Type: {FuelType}";
         }
 
-        public override void PrepareForDay() => throw new NotImplementedException();
+        public override void PrepareForDay()
+        {
+            throw new NotImplementedException();
+        }
 
-        public override void PerformMaintenance() => throw new NotImplementedException();
+        public override void PerformMaintenance()
+        {
+            throw new NotImplementedException();
+        }
 
-        public override bool PerformPreTripCheck() => throw new NotImplementedException();
-
+        public override bool PerformPreTripCheck()
+        {
+            throw new NotImplementedException();
+        }
         public VechicleStatus GetStatus()
         {
             return _status;

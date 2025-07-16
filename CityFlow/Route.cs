@@ -1,4 +1,5 @@
-﻿namespace CityFlow
+﻿
+namespace CityFlow
 {
     public class Route
     {
@@ -23,9 +24,10 @@
 
         public string Number { get; private set; }
         public VechicleType vechicleType { get; set; }
-        public Stop StartStop { get; private set; }
-        public Stop EndStop { get; private set; }
+        public Stop StartStop { get;  set; }
+        public Stop EndStop { get;  set; }
         public List<Stop> Stops { get; private set; }
+        public IEnumerable<Stop> IntermediateStops { get; private set; }
 
         public void AddIntermadiateStop(Stop stop)
         {
@@ -57,6 +59,13 @@
             { 
                 return false; 
             }
+        }
+        public List<Stop> GetFullPath()
+        {
+            var fullPath = new List<Stop> { StartStop };
+            fullPath.AddRange(IntermediateStops);
+            fullPath.Add(EndStop);
+            return fullPath;
         }
     }  
 }

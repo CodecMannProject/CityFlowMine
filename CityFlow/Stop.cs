@@ -8,13 +8,12 @@ namespace CityFlow
 {
     public class Stop
     {
-        public Stop(Guid id, string name, string direction, string location, StopType type, double latitude, double longitude)
+        public Stop(Guid id, string name, string direction, string location, double latitude, double longitude)
         {
             Id = id;
             Name = name;
             Direction = direction;
             Location = location;
-            Type = type;
             Latitude = latitude;
             Longitude = longitude;
         }

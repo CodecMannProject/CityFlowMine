@@ -10,27 +10,27 @@ namespace CityFlow
     {
         public int RouteId { get; set; }
         public string RouteName { get; set; }
-        public List<BusStation> Stations { get; set; }
+        public List<Stop> Stations { get; set; }
         public RouteShedule(int routeId, string routeName)
         {
             RouteId = routeId;
             RouteName = routeName;
-            Stations = new List<BusStation>();
+            Stations = new List<Stop>();
         }
-        public void AddStation(BusStation station)
+        public void AddStation(Stop station)
         {
             Stations.Add(station);
-            Console.WriteLine($"Added station {station.StationName} to route {RouteName}.");
+            Console.WriteLine($"Added station {station.Name} to route {RouteName}.");
         }
-        public void RemoveStation(BusStation station)
+        public void RemoveStation(Stop station)
         {
             if (Stations.Remove(station))
             {
-                Console.WriteLine($"Removed station {station.StationName} from route {RouteName}.");
+                Console.WriteLine($"Removed station {station.Name} from route {RouteName}.");
             }
             else
             {
-                Console.WriteLine($"Station {station.StationName} not found in route {RouteName}.");
+                Console.WriteLine($"Station {station.Name} not found in route {RouteName}.");
             }
         }
     }

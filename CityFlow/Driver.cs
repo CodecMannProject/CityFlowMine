@@ -12,23 +12,31 @@ namespace CityFlow
         public string FirstName { get; set; }
         public string LastName { get; set; }
         private DateTime _dateOfBirth;
+        private string employeeId;
 
-        public Driver(Guid employeeId, string firstName, string lastName, DateTime dateOfBirth, DriverStatus status, List<string> licenenceNumber, Bus? assignedBus)
+        public Driver(Guid employeeId, string firstName, string lastName, DateTime dateOfBirth, DriverStatus status)
         {
             EmployeeId = employeeId;
             FirstName = firstName;
             LastName = lastName;
             _dateOfBirth = dateOfBirth;
             Status = status;
-            LicenenceNumber = licenenceNumber;
-            AssignedBus = assignedBus;
+            LicenenceNumber = new List<string>();
             WorkHistory = new List<string>();
             WorkHistory.Add($"Driver {FullName} hired on {DateTime.Now.ToShortDateString()}");
         }
 
+        public Driver(Guid employeeId, string firstName, string lastName, DateTime dateOfBirth)
+        {
+            EmployeeId = employeeId;
+            FirstName = firstName;
+            LastName = lastName;
+            _dateOfBirth = dateOfBirth;
+        }
+
         public DriverStatus Status { get; set; }
-        public List<string> LicenenceNumber { get; private set; }
-        public Bus?AssignedBus { get; set; }
+        public List<string> LicenenceNumber { get; private set; } // Fixed the ambiguity by ensuring only one declaration exists
+        public Bus? AssignedBus { get; set; }
         public List<string> WorkHistory { get; set; }
 
         public string FullName

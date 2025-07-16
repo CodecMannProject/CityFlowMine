@@ -16,6 +16,11 @@ namespace CityFlow
         {
             RailCarCount = railCarCount;
         }
+
+        public Tram(int id, string model, string type, int capacity, VechicleStatus status) : base(id, model, type, capacity, status)
+        {
+        }
+
         public override string GetInfo()
         {
             return base.GetInfo() + $", Rail Cars: {RailCarCount}";
@@ -32,6 +37,16 @@ namespace CityFlow
         }
 
         public void DisembarkPassengers(int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PerformMaintenance()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool PerformPreTripCheck()
         {
             throw new NotImplementedException();
         }

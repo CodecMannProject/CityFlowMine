@@ -47,6 +47,22 @@ namespace CityFlow
             _status = status;
         }
 
+        protected TransportVehicle(int id, string model, string type, int capacity)
+        {
+            _id = id;
+            _model = model;
+            _type = type;
+            Capacity = capacity;
+        }
+
+        protected TransportVehicle(string id, string model, string type, int capacity, VechicleStatus status)
+        {
+            _model = model;
+            _type = type;
+            Capacity = capacity;
+            _status = status;
+        }
+
         public virtual string GetInfo()
         {
             return $"ID: {_id}, Model: {_model}, Type: {_type}, Capacity: {_capacity} tons";
