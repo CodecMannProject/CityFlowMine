@@ -11,13 +11,34 @@ namespace CityFlow
         protected int _id;
         protected string _model;
         private string _type;
+        private int _maxSittingPassengers;
+        private int _maxStandingPassengers;
+        protected int _totalSeats;
         private int _capacity;
         private int _year;
         protected VechicleStatus _status;
 
+        public int TotalMaxPassengers
+        {
+            get
+            {
+                if (_maxSittingPassengers == null && _maxStandingPassengers == null)
+                {
+                    return _totalSeats;
+                } else
+                {
+                    return _maxSittingPassengers + _maxStandingPassengers;
+                }
+            }
+            private set { _totalSeats = value; }
+        }
+
         public int Capacity
         {
-            get { return _capacity; }
+            get 
+            { 
+                return _capacity; 
+            }
             set
             {
                 if (value >= 0)
@@ -55,12 +76,13 @@ namespace CityFlow
             Capacity = capacity;
         }
 
-        protected TransportVehicle(string id, string model, string type, int capacity, VechicleStatus status)
+        protected TransportVehicle(string id, string model, string type, int capacity, int seats, VechicleStatus status)
         {
             _model = model;
             _type = type;
             Capacity = capacity;
             _status = status;
+            _totalSeats = seats;
         }
 
         public virtual string GetInfo()

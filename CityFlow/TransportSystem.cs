@@ -50,9 +50,9 @@ namespace CityFlow
         #endregion
 
         #region Керування автобусами   
-        public Bus RegisterNewBus(string licensePlate, string garageNumber, string model,int capacity, VechicleStatus status)
+        public Bus RegisterNewBus(string licensePlate, string model, string garageNumber, int capacity, int seats, VechicleStatus status)
         {
-            var newBus = new Bus(licensePlate, garageNumber, model,capacity, status);
+            var newBus = new Bus(licensePlate, model, garageNumber, capacity, seats, status);
             Buss.Add(newBus);
             return newBus;
         }

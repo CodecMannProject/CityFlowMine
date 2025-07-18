@@ -18,14 +18,14 @@ namespace CityFlow
         [System.Text.Json.Serialization.JsonIgnore]
         public int NextStopIndex { get; set; }
 
-        public Bus(string id, string model, string type, int capacity, VechicleStatus status) : base((string)id, model, type, capacity, status)
+        public Bus(string id, string model, string type, int capacity, int seats, VechicleStatus status) : base(id, model, type, capacity, seats, status)
         {
             FuelType = "Diesel";
             AreDorrsOpen = false;
             MaintanceHistory = new List<MaintanceRecord>();
             status = VechicleStatus.Available;
-
         }
+
         public string FuelType { get; set; }
         public bool AreDorrsOpen { get; set; }
         public List<MaintanceRecord> MaintanceHistory { get; set; }
@@ -34,7 +34,23 @@ namespace CityFlow
 
         public string Model
         {
-            get { return $"{Capacity}"; }
+            get 
+            { 
+                if (_totalSeats % 10 == 0 || Enumerable.Range(5, 9).Contains(_totalSeats % 10) || Enumerable.Range(11, 19).Contains(_totalSeats))
+                {
+                    return $"{_model} ({_totalSeats} місць)";
+                } else if (_totalSeats % 10 == 1)
+                {
+                    return $"{_model} ({_totalSeats} місце)";
+                } else if (Enumerable.Range(2, 4).Contains(_totalSeats % 10))
+                {
+                    return $"{_model} ({_totalSeats} місця)";
+                } else
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+            }
         }
 
         private void OpenDoors()
