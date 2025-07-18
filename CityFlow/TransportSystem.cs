@@ -123,7 +123,7 @@ namespace CityFlow
 
         internal void AssignDriverToBusOnRoute(Guid employeeId)
         {
-            throw new NotImplementedException();
+            
         }
         #endregion
     }

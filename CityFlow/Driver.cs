@@ -13,6 +13,7 @@ namespace CityFlow
         public string LastName { get; set; }
         private DateTime _dateOfBirth;
         private string employeeId;
+        private string _model;
 
         public Driver(Guid employeeId, string firstName, string lastName, DateTime dateOfBirth, DriverStatus status)
         {
@@ -35,7 +36,7 @@ namespace CityFlow
         }
 
         public DriverStatus Status { get; set; }
-        public List<string> LicenenceNumber { get; private set; } // Fixed the ambiguity by ensuring only one declaration exists
+        public List<string> LicenenceNumber { get; private set; } 
         public Bus? AssignedBus { get; set; }
         public List<string> WorkHistory { get; set; }
 

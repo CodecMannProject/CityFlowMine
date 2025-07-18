@@ -6,20 +6,21 @@ namespace CityFlow
         private string start;
         private string end;
 
-        public Route(string number, string start, string end)
+        public Route(string number, Stop startStop, Stop endStop, List<Stop> stops)
         {
-            Number = number;
-            this.start = start;
-            this.end = end;
-        }
+            if (startStop == null)
+                throw new ArgumentNullException(nameof(startStop), "Start stop cannot be null.");
+            if (endStop == null)
+                throw new ArgumentNullException(nameof(endStop), "End stop cannot be null.");
 
-        public Route(string number, VechicleType vechicleType, Stop startStop, Stop endStop, List<Stop> stops)
-        {
             Number = number;
-            this.vechicleType = vechicleType;
             StartStop = startStop;
             EndStop = endStop;
-            Stops = stops;
+
+            if (IntermediateStops != null)
+            {
+                IntermediateStops = new List<Stop>(IntermediateStops);
+            }
         }
 
         public string Number { get; private set; }
@@ -27,7 +28,7 @@ namespace CityFlow
         public Stop StartStop { get;  set; }
         public Stop EndStop { get;  set; }
         public List<Stop> Stops { get; private set; }
-        public IEnumerable<Stop> IntermediateStops { get; private set; }
+        public IEnumerable<Stop> IntermediateStops { get; private set; } = new List<Stop>();
 
         public void AddIntermadiateStop(Stop stop)
         {

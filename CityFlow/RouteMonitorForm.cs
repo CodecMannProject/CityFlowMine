@@ -14,7 +14,7 @@ namespace CityFlow
     {
         private readonly Route _routeToMonitor;
         private readonly List<Bus> _busesOnRoute;
-        private readonly List<PointF> _stopCoordinates; // Зберігає екранні координати зупинок
+        private readonly List<PointF> _stopCoordinates; 
 
         private const int StopSize = 10;
         private const int BusSize = 14;
@@ -54,14 +54,13 @@ namespace CityFlow
             }
         }
 
-        // Перераховує координати зупинок, якщо форма змінює розмір
+     
         private void RecalculateCoordinates()
         {
             _stopCoordinates.Clear();
             var fullPath = _routeToMonitor.GetFullPath();
             if (fullPath.Count < 2) return;
 
-            // Знаходимо межі координат маршруту
             float minLat = fullPath.Min(s => (float)s.Latitude);
             float maxLat = fullPath.Max(s => (float)s.Latitude);
             float minLon = fullPath.Min(s => (float)s.Longitude);
@@ -77,7 +76,6 @@ namespace CityFlow
 
             foreach (var stop in fullPath)
             {
-                // Пропорційно перетворюємо гео-координати в екранні
                 float x = padding + ((float)stop.Longitude - minLon) / lonRange * panelWidth;
                 float y = padding + ((float)stop.Latitude - maxLat) / -latRange * panelHeight; // Y інвертований
                 _stopCoordinates.Add(new PointF(x, y));

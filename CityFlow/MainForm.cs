@@ -30,20 +30,18 @@ namespace CityFlow
             var stop3 = new Stop(Guid.NewGuid(), "Майдан Незалежності", "до центру", "Київ", 50.4504, 30.5234);
             var stop4 = new Stop(Guid.NewGuid(), "Хрещатик", "до центру", "Київ", 50.4447, 30.5242);
 
-            var route50 = new Route("50", "stop1", "stop4");
+            var route50 = new Route("50", stop1, stop4, new List<Stop> {});
             route50.AddIntermadiateStop(stop2);
             route50.AddIntermadiateStop(stop3);
 
-            // Додаємо їх в систему
+            _transportSystem.Routes.Add(route50);
             _transportSystem.Stops.Add(stop1);
             _transportSystem.Stops.Add(stop2);
             _transportSystem.Stops.Add(stop3);
             _transportSystem.Stops.Add(stop4);
-            _transportSystem.Routes.Add(route50);
 
-            // Призначимо один з автобусів на цей маршрут для тесту
             var busToAssign = _transportSystem.Buss.First();
-            busToAssign.AssignedRoute = route50; // Потрібно додати public Route AssignedRoute { get; set; } в клас Bus
+            busToAssign.AssignedRoute = route50; 
         }
 
 
@@ -67,6 +65,9 @@ namespace CityFlow
             availableDriversComboBox.DataSource = availableDrivers;
             availableBusesComboBox.DataSource = availableBuses;
             onRouteDriversComboBox.DataSource = onRouteDrivers;
+
+            availableDriversComboBox.DisplayMember = "FullName";
+            availableBusesComboBox.DisplayMember = "model";
 
             mainTabControl.Invalidate();
         }

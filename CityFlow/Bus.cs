@@ -17,6 +17,7 @@ namespace CityFlow
 
         [System.Text.Json.Serialization.JsonIgnore]
         public int NextStopIndex { get; set; }
+
         public Bus(string id, string model, string type, int capacity, VechicleStatus status) : base((string)id, model, type, capacity, status)
         {
             FuelType = "Diesel";
@@ -25,12 +26,16 @@ namespace CityFlow
             status = VechicleStatus.Available;
 
         }
-
         public string FuelType { get; set; }
         public bool AreDorrsOpen { get; set; }
         public List<MaintanceRecord> MaintanceHistory { get; set; }
         public int Millage { get; private set; }
         public Route AssignedRoute { get; internal set; }
+
+        public string Model
+        {
+            get { return $"{Capacity}"; }
+        }
 
         private void OpenDoors()
         {
