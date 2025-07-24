@@ -9,6 +9,7 @@ namespace CityFlow
 {
     public class TransportSystem
     {
+        internal BindingList<Employee> AllEmployees { get; private set; }
         public BindingList<Driver> Drivers { get; private set; }
         public BindingList<Bus> Buss { get; private set; }
         public BindingList<Stop> Stops { get; private set; }
@@ -23,7 +24,7 @@ namespace CityFlow
         }
 
         
-        public List<Operator> operators { get; private set; }
+        internal List<Operator> operators { get; private set; }
 
         #region Керування водіями
 
@@ -48,6 +49,21 @@ namespace CityFlow
             }
         }
         #endregion
+
+        internal void PromoteEmployeeToAdmin(SuperAdmin promoter, Employee employeeToPromote)
+        {
+            // 1. Суперадмін готує "пакет" даних
+            var adminData = promoter.PreparePromotion(employeeToPromote);
+
+            // 2. Створюємо нового адміністратора
+            var newAdmin = new Administrator(adminData.EmployeeId, adminData.Login, "temp_pass", adminData.FirstName, adminData.LastName, EmployeeStatus.Active);
+
+            // 3. Видаляємо старий об'єкт співробітника зі списку
+            this.AllEmployees.Remove(employeeToPromote);
+
+            // 4. Додаємо новий об'єкт адміністратора
+            this.AllEmployees.Add(newAdmin);
+        }
 
         #region Керування автобусами   
         public Bus RegisterNewBus(string licensePlate, string model, string garageNumber, int capacity, int seats, VechicleStatus status)
@@ -99,11 +115,11 @@ namespace CityFlow
                 Console.WriteLine("Driver, bus, or route not found or is null.");
             }
         }
-        public void CompleteShift(Operator operatorObj)
+        internal void CompleteShift(Operator operatorObj)
         {
             if (operators.Contains(operatorObj))
             {
-                Console.WriteLine($"Operator {operatorObj.FirstName} has completed their shift.");
+                Console.WriteLine($"Operator {operatorObj.FullName} has completed their shift.");
                 /* foreach (var bus in operatorObj.Buss)
                 {
                     bus.Status = VechicleStatus.InDepot;
@@ -123,7 +139,7 @@ namespace CityFlow
 
         internal void AssignDriverToBusOnRoute(Guid employeeId)
         {
-            
+
         }
         #endregion
     }

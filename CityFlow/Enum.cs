@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace CityFlow
 {
+    public enum EmployeeStatus
+    {
+        Active,
+        OnLeave,
+        OnVacation,
+        SickLeave,
+        Terminated,
+    }
     public enum DriverStatus
     {
         Available,

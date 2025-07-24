@@ -6,21 +6,11 @@ using System.Threading.Tasks;
 
 namespace CityFlow
 {
-    public class Operator
+    internal class Operator : Employee
     {
-        public Operator(Guid id, string login, string passwordHash, string firstName, string lastName)
+        public Operator(string EmployeeId, string login, string passwordHash, string firstName, string lastName, EmployeeStatus status) : base(EmployeeId, login, passwordHash, firstName, lastName, status)
         {
-            Id = id;
-            Login = login;
-            PasswordHash = passwordHash;
-            FirstName = firstName;
-            LastName = lastName;
         }
-
-        public Guid Id { get; set; }
-        public string Login { get; set; }
-        public string PasswordHash { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public override string GetRoleDescription() => "Operator: Monitors and manages the bus fleet, ensuring efficient operations and safety compliance.";
     }
 }
