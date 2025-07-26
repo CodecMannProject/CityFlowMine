@@ -19,9 +19,9 @@ namespace CityFlow
 
         private void SetupTestData()
         {
-            _transportSystem.RegisterNewBus("AA1111XX", "Богдан А092", "101", 120, 42, VechicleStatus.Available);
-            _transportSystem.RegisterNewBus("AA2222XX", "МАЗ 203", "102", 215, 106, VechicleStatus.InDepot);
-            _transportSystem.RegisterNewBus("AA3333XX", "MAN Lion's City", "103", 56, 76, VechicleStatus.Available);
+            _transportSystem.RegisterNewBus("AA1111XX", "Богдан А092", "101", 120, 42, VehicleStatus.Available);
+            _transportSystem.RegisterNewBus("AA2222XX", "МАЗ 203", "102", 215, 106, VehicleStatus.InDepot);
+            _transportSystem.RegisterNewBus("AA3333XX", "MAN Lion's City", "103", 56, 76, VehicleStatus.Available);
 
             _transportSystem.HireDriver(Guid.NewGuid(), "Петро", "Петренко", new DateTime(1985, 5, 20));
             _transportSystem.HireDriver(Guid.NewGuid(), "Іван", "Іваненко", new DateTime(1990, 8, 15));

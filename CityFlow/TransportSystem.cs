@@ -66,7 +66,7 @@ namespace CityFlow
         }
 
         #region Керування автобусами   
-        public Bus RegisterNewBus(string licensePlate, string model, string garageNumber, int capacity, int seats, VechicleStatus status)
+        public Bus RegisterNewBus(string licensePlate, string model, string garageNumber, int capacity, int seats, VehicleStatus status)
         {
             var newBus = new Bus(licensePlate, model, garageNumber, capacity, seats, status);
             Buss.Add(newBus);
@@ -122,7 +122,7 @@ namespace CityFlow
                 Console.WriteLine($"Operator {operatorObj.FullName} has completed their shift.");
                 /* foreach (var bus in operatorObj.Buss)
                 {
-                    bus.Status = VechicleStatus.InDepot;
+                    bus.Status = VehicleStatus.InDepot;
                     Console.WriteLine($"Bus {bus.ToString()} is now in depot.");
                 }*/
             }

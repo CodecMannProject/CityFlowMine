@@ -16,7 +16,7 @@ namespace CityFlow
         protected int _totalSeats;
         private int _capacity;
         private int _year;
-        protected VechicleStatus _status;
+        protected VehicleStatus _status;
 
         public int TotalMaxPassengers
         {
@@ -59,7 +59,7 @@ namespace CityFlow
             }
         }
 
-        protected TransportVehicle(int id, string model, string type, int capacity, VechicleStatus status)
+        protected TransportVehicle(int id, string model, string type, int capacity, VehicleStatus status)
         {
             _id = id;
             _model = model;
@@ -76,13 +76,43 @@ namespace CityFlow
             Capacity = capacity;
         }
 
-        protected TransportVehicle(string id, string model, string type, int capacity, int seats, VechicleStatus status)
+        protected TransportVehicle(string id, string model, string type, int capacity, int seats, VehicleStatus status)
         {
             _model = model;
             _type = type;
             Capacity = capacity;
             _status = status;
             _totalSeats = seats;
+        }
+        public Driver? AssignedDriver { get; set; }
+        public bool AreDorrsOpen { get; set; }
+        public bool AreLightsOn { get; set; }
+        public List<MaintanceRecord> MaintanceHistory { get; set; }
+        public int Millage { get; private set; }
+        public Route AssignedRoute { get; internal set; }
+
+        public string Model
+        {
+            get
+            {
+                if (_totalSeats % 10 == 0 || Enumerable.Range(5, 9).Contains(_totalSeats % 10) || Enumerable.Range(11, 19).Contains(_totalSeats))
+                {
+                    return $"{_model} ({_totalSeats} місць)";
+                }
+                else if (_totalSeats % 10 == 1)
+                {
+                    return $"{_model} ({_totalSeats} місце)";
+                }
+                else if (Enumerable.Range(2, 4).Contains(_totalSeats % 10))
+                {
+                    return $"{_model} ({_totalSeats} місця)";
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+            }
         }
 
         public virtual string GetInfo()
@@ -91,19 +121,23 @@ namespace CityFlow
         }
         public abstract void PrepareForDay();
 
+        public abstract bool PerformPreTripCheck();
+
+        public abstract void PerformMaintenance();
+
         public void AsiignRoute()
         {
-            if(_status == VechicleStatus.InDepot)
+            if(_status == VehicleStatus.InDepot)
             {
-                _status = VechicleStatus.Available;
+                _status = VehicleStatus.Available;
                 if (PerformPreTripCheck())
                 {
-                    _status= VechicleStatus.OnRoute;
+                    _status= VehicleStatus.OnRoute;
 
                 }
                 else
                 {
-                    _status = VechicleStatus.UnderMaintenance;
+                    _status = VehicleStatus.UnderMaintenance;
                     throw new InvalidOperationException("Pre-trip check failed. Vehicle is under maintenance.");
                 }
             }
@@ -113,29 +147,144 @@ namespace CityFlow
             }
         }
 
-        public virtual void StartRoute()
+        public int BoardPassengers(int PassengerCount)
         {
+            if (!AreDorrsOpen)
+            {
+                MessageBox.Show("Please open the doors before boarding passengers.");
+                return 0;
+            }
+            else
+            {
+                int avaliableSeats = Capacity - PassengerCount;
+                if (avaliableSeats <= 0)
+                {
+                    MessageBox.Show("No available seats to board passengers.");
+                    return PassengerCount;
+                }
+                else
+                {
+                    int boardingCount = Math.Min(avaliableSeats, PassengerCount);
+                    PassengerCount += boardingCount;
+                    Console.WriteLine($"{boardingCount} passengers boarded the bus.");
+                }
+            }
+            return PassengerCount;
         }
 
-        public virtual void EndRoute()
+        public int DisembarkPassengers(int PassengerCount)
         {
+            if (!AreDorrsOpen)
+            {
+                MessageBox.Show("Please open the doors before disembarking passengers.");
+                return 0;
+            }
+            else
+            {
+                if (PassengerCount <= 0)
+                {
+                    MessageBox.Show("No passengers to disembark.");
+                    return 0;
+                }
+                else
+                {
+                    Console.WriteLine($"{PassengerCount} passengers disembarked the bus.");
+                    return PassengerCount;
+                }
+            }
         }
-        public virtual void StopRoute() { }
-
-        public virtual void ToDepot()
+        public VehicleStatus GetStatus()
         {
+            return _status;
         }
-        public abstract void PerformMaintenance();
-        public abstract bool PerformPreTripCheck();
-    }
 
-    public enum VechicleStatus
-    {
-        Available,
-        InDepot,
-        OnRoute,
-        InService,
-        UnderMaintenance,
-        OutOfService
+        public void SendToRepair()
+        {
+            if (_status == VehicleStatus.UnderMaintenance)
+            {
+                _status = VehicleStatus.InDepot;
+                Console.WriteLine("Bus is now in repair.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not under maintenance.");
+            }
+        }
+        public void ReturnFromRepair()
+        {
+            if (_status == VehicleStatus.InDepot)
+            {
+                _status = VehicleStatus.Available;
+                Console.WriteLine("Bus has returned from repair and is now available.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not in depot.");
+            }
+        }
+
+        public void InIncident()
+        {
+            _status = VehicleStatus.InIncident;
+            Console.WriteLine("Bus is now on route.");
+        }
+
+        public void SendAfterIncident(VehicleStatus selectedStatus)
+        {
+            if (_status == VehicleStatus.InIncident && selectedStatus == null)
+            {
+                _status = selectedStatus;
+                Console.WriteLine($"Bus has returned from incident and is now {_status.ToString().ToLower()}.");
+            }
+            else if (selectedStatus != null)
+            {
+                throw new InvalidOperationException("Bus isn't in an incident.");
+            } else
+            {
+                throw new ArgumentNullException("Selected status is null.");
+            }
+        }
+
+        public void GoOnRoute()
+        {
+            if (_status == VehicleStatus.Available)
+            {
+                _status = VehicleStatus.OnRoute;
+                Console.WriteLine("Bus is now on route.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not available for route assignment.");
+            }
+        }
+        public void GoToDepot()
+        {
+            if (_status == VehicleStatus.OnRoute)
+            {
+                _status = VehicleStatus.InDepot;
+                Console.WriteLine("Bus is now in depot.");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bus is not on route.");
+            }
+        }
+        public void AddMaintenanceRecord(MaintanceRecord record)
+        {
+            if (MaintanceHistory == null)
+            {
+                MaintanceHistory = new List<MaintanceRecord>();
+            }
+            MaintanceHistory.Add(record);
+        }
+        public void UpdateMillage(int newMillage)
+        {
+            if (newMillage < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(newMillage), "Millage cannot be negative.");
+            }
+            Millage = newMillage;
+            Console.WriteLine($"Millage updated to {Millage} km.");
+        }
     }
 }

@@ -33,6 +33,14 @@ namespace CityFlow
         }
         public class AdministratorData
         {
+            public AdministratorData(string employeeId, string login, string firstName, string lastName)
+            {
+                EmployeeId = employeeId;
+                Login = login;
+                FirstName = firstName;
+                LastName = lastName;
+            }
+
             public string EmployeeId { get; set; }
             public string Login { get; set; }
             public string FirstName { get; set; }

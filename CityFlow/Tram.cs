@@ -17,7 +17,7 @@ namespace CityFlow
             RailCarCount = railCarCount;
         }
 
-        public Tram(int id, string model, string type, int capacity, VechicleStatus status) : base(id, model, type, capacity, status)
+        public Tram(int id, string model, string type, int capacity, VehicleStatus status) : base(id, model, type, capacity, status)
         {
         }
 

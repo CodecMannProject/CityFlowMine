@@ -18,6 +18,7 @@ namespace CityFlow
     {
         Available,
         OnRoute,
+        InIncident,
         OnBreak,
         SickLeave,
         OnVocation,
@@ -26,10 +27,13 @@ namespace CityFlow
 
     public enum VehicleStatus
     {
-        Operational,
+        Available,
+        InDepot,
         OnRoute,
-        OnRepair,
-        Decommissioned,
+        InService,
+        UnderMaintenance,
+        InIncident,
+        OutOfService
     }
     public enum VechicleType
     {

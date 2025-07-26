@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +37,7 @@ namespace CityFlow
             _dateOfBirth = dateOfBirth;
         }
 
-        public DriverStatus Status { get; set; }
+        protected DriverStatus Status { get; set; }
         public List<string> LicenenceNumber { get; private set; } 
         public Bus? AssignedBus { get; set; }
         public List<string> WorkHistory { get; set; }
@@ -60,6 +62,7 @@ namespace CityFlow
             if (AssignedBus == null)
             {
                 AssignedBus = bus;
+                bus.AssignedDriver = this;
                 WorkHistory.Add($"Assigned to bus {bus.ToString()} on {DateTime.Now.ToShortDateString()}");
             }
             else
@@ -72,6 +75,7 @@ namespace CityFlow
             if (AssignedBus != null)
             {
                 WorkHistory.Add($"Released from bus {AssignedBus.ToString()} on {DateTime.Now.ToShortDateString()}");
+                AssignedBus.AssignedDriver = null;
                 AssignedBus = null;
             }
             else
@@ -79,6 +83,12 @@ namespace CityFlow
                 throw new InvalidOperationException("Driver is not assigned to any bus.");
             }
         }
+
+        public void InIncident()
+        {
+            Status = DriverStatus.InIncident;
+        }
+
         public void GoOnSeakLeave()
         {
             if (Status != DriverStatus.SickLeave)
@@ -101,6 +111,86 @@ namespace CityFlow
             else
             {
                 throw new InvalidOperationException("Driver is not on leave.");
+            }
+        }
+
+        public void OpenDoors()
+        {
+            if (AssignedBus == null)
+            {
+                throw new NullReferenceException();
+            }
+            else 
+            {
+                if (!AssignedBus.AreDorrsOpen)
+                {
+                    AssignedBus.AreDorrsOpen = true;
+                    Console.WriteLine("Doors are now open.");
+                }
+                else
+                {
+                    Console.WriteLine("Doors are already open.");
+                }
+            }
+        }
+
+        public void CloseDoors()
+        {
+            if (AssignedBus == null)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                if (AssignedBus.AreDorrsOpen)
+                {
+                    AssignedBus.AreDorrsOpen = false;
+                    Console.WriteLine("Doors are now closed.");
+                }
+                else
+                {
+                    Console.WriteLine("Doors are already closed.");
+                }
+            }
+        }
+
+        public void TurnLightsOn()
+        {
+            if (AssignedBus == null)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                if (!AssignedBus.AreLightsOn)
+                {
+                    AssignedBus.AreLightsOn = true;
+                    Console.WriteLine("Lights are now on");
+                }
+                else
+                {
+                    Console.WriteLine("Lights are already on");
+                }
+            }
+        }
+
+        public void TurnLightsOff()
+        {
+            if (AssignedBus == null)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                if (AssignedBus.AreLightsOn)
+                {
+                    AssignedBus.AreLightsOn = false;
+                    Console.WriteLine("Lights are now off");
+                }
+                else
+                {
+                    Console.WriteLine("Lights are already off");
+                }
             }
         }
     }
