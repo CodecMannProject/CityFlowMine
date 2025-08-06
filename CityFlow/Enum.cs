@@ -9,6 +9,7 @@ namespace CityFlow
     public enum EmployeeStatus
     {
         Active,
+        Blocked,
         OnLeave,
         OnVacation,
         SickLeave,

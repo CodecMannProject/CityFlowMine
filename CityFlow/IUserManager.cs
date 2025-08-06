@@ -8,5 +8,10 @@ namespace CityFlow
 {
     internal interface IUserManager
     {
+        void ResetPasswordFor(Employee targetEmployee, string newTemporaryPassword);
+
+        void BlockAccount(Employee targetEmployee);
+
+        void UnblockAccount(Employee targetEmployee);
     }
 }

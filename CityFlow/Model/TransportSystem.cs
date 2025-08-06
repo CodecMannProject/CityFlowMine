@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CityFlow.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -140,6 +141,11 @@ namespace CityFlow
         internal void AssignDriverToBusOnRoute(Guid employeeId)
         {
 
+        }
+
+        internal object AuthenticateUser(string login, string password)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

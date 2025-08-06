@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CityFlow
+namespace CityFlow.ViewModel
 {
-    internal class Admin
+    internal class SuperAdminPanelViewModel
     {
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace CityFlow
+﻿namespace CityFlow.View
 {
-    partial class AdminForm
+    partial class SuperAdminPanelForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "AdminForm";
+            this.Text = "SuperAdminPanelForm";
         }
 
         #endregion

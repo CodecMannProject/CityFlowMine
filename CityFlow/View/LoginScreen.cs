@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CityFlow
+namespace CityFlow.View
 {
-    public partial class AdminForm : Form
+    public partial class LoginScreen : Form
     {
-        public AdminForm()
+        public LoginScreen()
         {
             InitializeComponent();
         }

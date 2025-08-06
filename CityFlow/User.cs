@@ -7,37 +7,39 @@ using System.Security.Cryptography;
 
 namespace CityFlow
 {
-    internal abstract class User: IAuthenticatable
+    internal abstract class User : IAuthenticatable
     {
-        protected Guid idUser;
-        protected string name;
-        protected string surname;
-        protected string login;
-        protected string passwordHash;
+        public Guid Id { get; private set; }
+        public string Login { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        protected User( string login, string passwordHash, string name, string surname)
+        public string FullName => $"{LastName} {FirstName}";
+        private string _passwordHash;
+
+        protected User(string login, string password, string firstName, string lastName)
         {
-            this.idUser = Guid.NewGuid();
-            this.login = login;
-            this.passwordHash = passwordHash;
-            this.name = name;
-            this.surname = surname;
+            Id = Guid.NewGuid();
+            Login = login;
+            FirstName = firstName;
+            LastName = lastName;
+            _passwordHash = HashPassword(password);
         }
 
         public bool VerifyPassword(string passwordToVerify)
         {
             if (string.IsNullOrEmpty(passwordToVerify)) return false;
             string hashedPassword = HashPassword(passwordToVerify);
-            return hashedPassword == passwordHash;
+            return hashedPassword == _passwordHash;
         }
         public bool ChangePassword(string oldPassword, string newPassword)
         {
-            if (string.IsNullOrEmpty(newPassword)|| newPassword.Length <10)
+            if (string.IsNullOrEmpty(newPassword) || newPassword.Length < 10)
             {
                 MessageBox.Show("New password must be at least 10 characters long.");
                 throw new ArgumentException("New password must be at least 10 characters long.");
             }
-            passwordHash = HashPassword(newPassword);
+            _passwordHash = HashPassword(newPassword);
             return true;
         }
 
@@ -57,11 +59,7 @@ namespace CityFlow
 
         public string GetPasswordHash()
         {
-            return passwordHash;
-        }
-        public string FullName
-        {
-            get { return $"{name} {surname}"; }
+            return _passwordHash;
         }
 
         public abstract string GetRoleDescription();

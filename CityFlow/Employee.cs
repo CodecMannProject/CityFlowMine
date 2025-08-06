@@ -52,5 +52,14 @@ namespace CityFlow
             _status = EmployeeStatus.Terminated;
         }
 
+        internal void SetStatus(EmployeeStatus newStatus)
+        {
+            if (_status == EmployeeStatus.Terminated && newStatus != EmployeeStatus.Terminated)
+            {
+                throw new InvalidOperationException("Неможливо змінити статус звільненого співробітника.");
+            }
+            _status = newStatus;
+        }
+
     }
 }
